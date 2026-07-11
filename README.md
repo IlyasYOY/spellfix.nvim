@@ -4,6 +4,8 @@
 It uses the same syntax-aware spell scanner as Neovim, then presents suggested
 replacements and review actions through `vim.ui.select`.
 
+<img width="1574" height="1026" alt="Screenshot 2026-07-11 at 23 48 56" src="https://github.com/user-attachments/assets/6fce54f9-6c6e-4449-8410-d44f6c53c48d" />
+
 ## Requirements
 
 - Neovim 0.11 or newer
