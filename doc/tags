@@ -1,0 +1,9 @@
+:SpellFix	spellfix.txt	/*:SpellFix*
+spellfix	spellfix.txt	/*spellfix*
+spellfix-actions	spellfix.txt	/*spellfix-actions*
+spellfix-api	spellfix.txt	/*spellfix-api*
+spellfix-command	spellfix.txt	/*spellfix-command*
+spellfix-health	spellfix.txt	/*spellfix-health*
+spellfix-requirements	spellfix.txt	/*spellfix-requirements*
+spellfix-setup	spellfix.txt	/*spellfix-setup*
+spellfix.txt	spellfix.txt	/*spellfix.txt*

@@ -13,7 +13,7 @@ replacements and review actions through `vim.ui.select`.
 
 ## Installation
 
-With Neovim's built-in `vim.pack`:
+With Neovim 0.12 or newer, use the built-in `vim.pack`:
 
 ```lua
 vim.pack.add {
@@ -22,6 +22,20 @@ vim.pack.add {
 ```
 
 The plugin registers `:SpellFix` automatically. Calling `setup()` is optional.
+
+Neovim 0.11 users should install the plugin with lazy.nvim or another package
+manager.
+
+With [lazy.nvim](https://github.com/folke/lazy.nvim):
+
+```lua
+{
+    "IlyasYOY/spellfix.nvim",
+    opts = {
+        suggestion_count = 10,
+    },
+}
+```
 
 ## Configuration
 
@@ -69,18 +83,30 @@ end
 `review()` is asynchronous and defaults to the current window and its whole
 buffer. Only one review may be active for a buffer at a time.
 
+## Health
+
+Run `:checkhealth spellfix` to verify the command, built-in spell functions,
+UI functions, and the current buffer's first `spellfile` target. An empty or
+unwritable target is reported as a warning because words selected with the add
+action cannot be persisted.
+
+See `:help spellfix` for the complete Vim help reference.
+
 ## Development
 
 ```sh
 make help
 make check
+make test NVIM_VERSION=v0.11.7
+make test NVIM_VERSION=v0.12.4
+make test NVIM_VERSION=nightly
 ```
 
-`make check` checks formatting, runs Luacheck, and executes the isolated
-headless Neovim test suite. Set `NVIM_VERSION` to test a downloaded release,
-for example `make test NVIM_VERSION=v0.11.7`.
+`make check` checks formatting, runs Luacheck, executes the isolated headless
+Neovim test suite, and validates the tracked Vim help tags. Set `NVIM_VERSION`
+to test a downloaded release, for example
+`make test NVIM_VERSION=v0.11.7`.
 
 ## License
 
 MIT
-

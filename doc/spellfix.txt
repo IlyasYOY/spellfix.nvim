@@ -1,0 +1,69 @@
+*spellfix.txt*          Interactive spelling review for Neovim
+
+==============================================================================
+CONTENTS                                                   *spellfix*
+
+1. Requirements                              |spellfix-requirements|
+2. Setup                                     |spellfix-setup|
+3. Command                                   |spellfix-command|
+4. Review actions                            |spellfix-actions|
+5. Lua API                                   |spellfix-api|
+6. Health                                    |spellfix-health|
+
+==============================================================================
+1. Requirements                              *spellfix-requirements*
+
+Neovim 0.11 or newer is required. spellfix has no plugin dependencies and
+uses Neovim's built-in spell scanner, suggestions, and UI functions.
+
+==============================================================================
+2. Setup                                     *spellfix-setup*
+
+Calling setup is optional: >lua
+
+    require("spellfix").setup {
+        suggestion_count = 10,
+    }
+<
+The option controls how many spellsuggest() results appear before actions.
+
+==============================================================================
+3. Command                                   *spellfix-command*
+
+                                                        *:SpellFix*
+:[range]SpellFix
+        Review spelling errors in the whole buffer or explicit line range.
+        Only one review may be active for a buffer.
+
+==============================================================================
+4. Review actions                            *spellfix-actions*
+
+The picker offers suggested replacements followed by actions to enter a
+replacement, add the word to 'spellfile', skip once, skip every remaining
+occurrence in this review, or stop. Cancelling stops the review.
+
+Scanning respects Neovim's @Spell and @NoSpell syntax regions. The target
+window's 'spell' value and original cursor are restored when appropriate.
+
+==============================================================================
+5. Lua API                                   *spellfix-api*
+
+setup({opts})          Configure the suggestion count.
+review({opts})         Start an asynchronous review.
+
+Review options are winid, line1, and line2. The function returns true when a
+review starts, or false plus an error. Picker and input callbacks validate the
+buffer changedtick before applying a choice.
+
+==============================================================================
+6. Health                                    *spellfix-health*
+
+Run: >vim
+
+    :checkhealth spellfix
+<
+The provider checks module and command availability, built-in spell functions,
+the UI functions, and whether the current buffer's first 'spellfile' target or
+its parent directory is writable.
+
+vim:tw=78:ts=8:noet:ft=help:norl:

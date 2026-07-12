@@ -1,26 +1,32 @@
 # spellfix.nvim Agent Guidelines
 
-## Project shape
-
-- The public Lua API lives in `lua/spellfix/init.lua`.
-- Review-session behavior lives in `lua/spellfix/session.lua`.
-- Automatic `:SpellFix` registration lives in `plugin/spellfix.lua`.
-- Tests run in isolated project and XDG directories under ignored test paths.
-- The plugin has no runtime dependencies beyond Neovim.
-
-## Compatibility
+## Scope and compatibility
 
 - Support Neovim 0.11 and newer.
-- Preserve syntax-aware spell scanning through Neovim's `spellbadword()`.
-- Preserve the command and Lua API documented in `README.md`.
-- Keep `vim.ui.select` and `vim.ui.input` as the UI integration points.
+- Preserve `:SpellFix`, explicit range handling, setup options, and the Lua
+  API documented in `README.md` and `doc/spellfix.txt`.
+- Preserve asynchronous review and syntax-aware scanning through Neovim's
+  `spellbadword()`.
+- Keep `vim.ui.select()` and `vim.ui.input()` as the UI integration points.
+- Preserve buffer changedtick checks, single-session ownership, spellfile
+  writes, and restoration of window spell state and cursor position.
 
-## Commands
+## Repository structure
 
-- `make check` runs the canonical formatting, lint, and test suite.
-- `make test` runs tests with the current `nvim`.
-- `make test NVIM_VERSION=v0.11.7` runs tests with a downloaded release.
+- Runtime modules and focused config, session, API, and health specs live
+  together under `lua/spellfix/`.
+- Automatic command registration remains in `plugin/spellfix.lua`.
+- Startup-command and end-to-end review coverage remains under `tests/`.
+- Vim help lives in `doc/spellfix.txt`; keep `doc/tags` synchronized.
+- Isolate XDG state, logs, spellfiles, and test buffers under ignored
+  `.test-home/` and `.test-work/`.
+
+## Development commands
+
+- `make check` is the canonical non-mutating lint, test, and help check.
+- `make test NVIM_VERSION=v0.11.7` verifies minimum compatibility.
+- `make test NVIM_VERSION=v0.12.4` verifies current stable compatibility.
+- `make test NVIM_VERSION=nightly` is the non-blocking CI probe.
 - `make format` formats Lua sources.
 
-Do not commit or push changes unless the user explicitly asks.
-
+Do not commit, push, tag, or publish unless the user explicitly asks.
